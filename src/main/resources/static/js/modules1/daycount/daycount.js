@@ -1,5 +1,5 @@
 var vm = new Vue({
-    el: 'rrapp',
+    el: '#rrapp',
     data: {
         dayCounts:[[]]
     },
