@@ -12,6 +12,7 @@
        <if test="endDate != null and endDate != ''">
            <![CDATA[ and DATE_FORMAT(td.date,'%Y-%m-%d')<=#{endDate} ]]>
        </if>
+       ORDER BY td.date
    </select>
 
 </mapper>
