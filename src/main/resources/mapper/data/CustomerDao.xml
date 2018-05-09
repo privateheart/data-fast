@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="io.renren.modules.data.dao.CustomerDao" >
+
+   <select id="queryAllCustomer" resultType="io.renren.modules.data.entity.Customer">
+       SELECT * FROM customer
+   </select>
+
+    <select id="queryAllCustomerCount">
+        SELECT COUNT(*) FROM customer
+    </select>
+
+    <select id="queryCustomers">
+        select * from customer WHERE customer_id in
+        <foreach collection="array" item="customerId" open="(" separator="," close=")">#{customerId}</foreach>
+    </select>
+</mapper>
