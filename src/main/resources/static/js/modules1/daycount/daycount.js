@@ -1,11 +1,57 @@
 var vm = new Vue({
     el: '#rrapp',
     data: {
-        dayCounts:[[]]
+        dayCounts:[[]],
+        q:{
+            startDate:'2018-05-01',
+            endDate:'2018-05-09',
+            customerIds:[]
+        },
+        multiple: {
+            originOptions: [],
+            selectedList: []
+        }
+    },
+    mounted: function() {
+        //数据组装
+        this.queryData();
+        // this.getCustomerDayCounts();
     },
     methods: {
-        initChars:function () {
+        queryData: function(){
+            var mySelf = this;
+            //do ajax here
+            $.ajax({
+                url: baseURL + "customer/listAll",
+                type:"POST",
+                data:{},
+                success:function (r) {
+                    if (r.code==0){
+                        for (var i=0; i<r.customers.length; i++){
+                            mySelf.multiple.originOptions.push({"id":r.customers[i].customerId,"name":r.customers[i].customer});
+                        }
+                        mySelf.multiple.selectedList = [{"id":r.customers[0].customerId,"name":r.customers[0].customer}];
+                    }
+                }
+            });
+            // mySelf.multiple.originOptions = [{"id":"1","name":"lemon"},{"id":"2","name":"mike"},{"id":"3","name":"lara"},{"id":"4","name":"zoe"},{"id":"5","name":"steve"},{"id":"6","name":"nolan"}];
+            // mySelf.multiple.selectedList = [{"id":"3","name":"lara"}];
 
+            //以上执行完毕，执行这个任务
+            this.$nextTick(function(){
+
+            });
+        },
+        getSelectIds:function () {
+            var ids = [];
+           for (var i=0; i< this.multiple.selectedList.length; i++){
+               ids.push(this.multiple.selectedList[i].id);
+           }
+           return ids;
+        },
+        initChars:function () {
+            //销毁 上次查询残存的图表
+            echarts.dispose(document.getElementById('main'));
             var myChart = echarts.init(document.getElementById('main'));
             setTimeout(function () {
                 option = {
@@ -37,12 +83,12 @@ var vm = new Vue({
                             radius: '30%',
                             center: ['50%', '25%'],
                             label: {
-                                formatter: '{b}: {@2018-05-01} ({d}%)'
+                                formatter: '{b}: {@'+vm.q.startDate+'} ({d}%)'
                             },
                             encode: {
                                 itemName: 'customer',
-                                value: '2018-05-01',
-                                tooltip: '2018-05-01'
+                                value: vm.q.startDate,
+                                tooltip: vm.q.startDate
                             }
                         }
                     ]
@@ -72,7 +118,8 @@ var vm = new Vue({
             });
         },
         getCustomerDayCounts:function () {
-            var params = {customerIds:[],startDate:'2018-05-01',endDate:'2018-05-09'};
+            var selectIds = this.getSelectIds();
+            var params = {customerIds:selectIds,startDate:this.q.startDate,endDate:this.q.endDate};
             $.ajax({
                url: baseURL + "dayCounts/list",
                type:"POST",
@@ -100,9 +147,10 @@ var vm = new Vue({
                    }
                }
             });
+        },
+        multipleCallback: function(data){
+            this.multiple.selectedList = data;
+            // console.log('父级元素调用multipleSelected 选中的是' + JSON.stringify(data))
         }
-    },
-    created:function () {
-        this.getCustomerDayCounts();
     }
 });

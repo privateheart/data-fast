@@ -1,17 +1,13 @@
 package io.renren.modules1.daycount.controller;
 
-import io.renren.common.utils.DateUtils;
 import io.renren.common.utils.R;
 import io.renren.modules1.daycount.service.CustomerDayCountService;
 import io.renren.modules1.daycount.vo.CustomerDayCounts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 

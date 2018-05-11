@@ -6,12 +6,12 @@
        SELECT * FROM customer
    </select>
 
-    <select id="queryAllCustomerCount">
+    <select id="queryAllCustomerCount" resultType="int">
         SELECT COUNT(*) FROM customer
     </select>
 
-    <select id="queryCustomers">
+    <select id="queryCustomers" resultType="io.renren.modules.data.entity.Customer">
         select * from customer WHERE customer_id in
-        <foreach collection="array" item="customerId" open="(" separator="," close=")">#{customerId}</foreach>
+        <foreach collection="list" item="customerId" open="(" separator="," close=")">#{customerId}</foreach>
     </select>
 </mapper>
