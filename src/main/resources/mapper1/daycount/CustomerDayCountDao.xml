@@ -3,7 +3,7 @@
 <mapper namespace="io.renren.modules1.daycount.dao.CustomerDayCountDao" >
 
    <select id="queryDayCountList" resultType="io.renren.modules1.daycount.entity.DayCount">
-       SELECT td.date AS count_date,IFNULL(cdc.count_id,0) AS count_id,IFNULL(cdc.session_id,0) AS session_id,IFNULL(cdc.flow_count,0) AS flow_count
+       SELECT td.date AS count_date,SUM(IFNULL(cdc.flow_count, 0)) AS flow_count
        FROM tmpdate td LEFT JOIN customer_${customerId}_day_count cdc ON td.date=cdc.count_date
        WHERE 1=1
        <if test="startDate != null and startDate != ''">
@@ -12,6 +12,7 @@
        <if test="endDate != null and endDate != ''">
            <![CDATA[ and DATE_FORMAT(td.date,'%Y-%m-%d')<=#{endDate} ]]>
        </if>
+       GROUP BY td.date
        ORDER BY td.date
    </select>
 
