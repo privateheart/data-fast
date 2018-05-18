@@ -4,6 +4,7 @@ import io.renren.modules.data.entity.Customer;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 测试
@@ -32,4 +33,18 @@ public interface CustomerDao {
      * @return
      */
     List<Customer> queryCustomers(List<Integer> customerIds);
+
+    /**
+     * 条件查询 机器
+     * @param params
+     * @return
+     */
+    List<Customer> queryList(Map<String, Object> params);
+
+    /**
+     * 条件查询 机器 总条数
+     * @param params
+     * @return
+     */
+    int queryListCount(Map<String, Object> params);
 }

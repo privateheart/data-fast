@@ -3,6 +3,7 @@ package io.renren.modules.data.service;
 import io.renren.modules.data.entity.Customer;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CustomerService {
     /**
@@ -23,4 +24,18 @@ public interface CustomerService {
      * @return
      */
     List<Customer> queryCustomers(List<Integer> customerIds);
+
+    /**
+     * 条件查询 机器
+     * @param params
+     * @return
+     */
+    List<Customer> queryList(Map<String, Object> params);
+
+    /**
+     * 条件查询 机器 总条数
+     * @param params
+     * @return
+     */
+    int queryListCount(Map<String, Object> params);
 }

@@ -14,4 +14,23 @@
         select * from customer WHERE customer_id in
         <foreach collection="list" item="customerId" open="(" separator="," close=")">#{customerId}</foreach>
     </select>
+
+    <select id="queryList" resultType="io.renren.modules.data.entity.Customer">
+        SELECT * FROM customer where 1=1
+        <if test="customer!=null and customer!=''">AND customer=#{customer}</if>
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="queryListCount" resultType="int">
+        select COUNT(*) from customer WHERE 1=1
+        <if test="customer!=null and customer!=''">AND customer=#{customer}</if>
+    </select>
+
 </mapper>
