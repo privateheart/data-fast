@@ -13,6 +13,11 @@ var vm = new Vue({
         }
     },
     mounted: function() {
+        //装载
+        var start = AddDays(-7);
+        var end = AddDays(0);
+        this.q.startDate = start;
+        this.q.endDate = end;
         //数据组装
         this.queryData();
         // this.getCustomerDayCounts();
