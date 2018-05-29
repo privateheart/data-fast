@@ -1,5 +1,6 @@
 package io.renren.modules.data.controller;
 
+import io.renren.common.annotation.SysLog;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
 import io.renren.common.utils.R;
@@ -28,12 +29,14 @@ public class CustomerController {
     private CustomerService customerService;
 
     @RequestMapping("listAll")
+    @SysLog("查询所有的机器")
     public R listAll(){
         List<Customer> customers = customerService.queryAllCustomer();
         return R.ok().put("customers",customers);
     }
 
     @RequestMapping("list")
+    @SysLog("查询机器列表")
     public R list(@RequestParam Map<String,Object> params){
         List<Customer> customers = customerService.queryList(params);
         int total = customerService.queryListCount(params);

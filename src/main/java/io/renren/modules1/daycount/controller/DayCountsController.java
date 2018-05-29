@@ -1,5 +1,6 @@
 package io.renren.modules1.daycount.controller;
 
+import io.renren.common.annotation.SysLog;
 import io.renren.common.utils.R;
 import io.renren.modules1.daycount.service.CustomerDayCountService;
 import io.renren.modules1.daycount.vo.CustomerDayCounts;
@@ -26,6 +27,7 @@ public class DayCountsController {
     CustomerDayCountService customerDayCountService;
 
     @RequestMapping("/list")
+    @SysLog("查询每天每台机器的数量")
     public R list(@RequestBody Map<String,Object> params){
 
         List<Integer> customerIds = (List<Integer>) params.get("customerIds");
