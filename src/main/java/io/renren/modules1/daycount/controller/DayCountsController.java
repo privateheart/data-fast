@@ -34,10 +34,11 @@ public class DayCountsController {
 
         String startDate = (String) params.get("startDate");
         String endDate =  (String) params.get("endDate");
+        String dateType =  (String) params.get("dateType");
 
-        List<CustomerDayCounts> customerDayCounts = customerDayCountService.queryCustomerDayCounts(customerIds, startDate, endDate);
+        List<CustomerDayCounts> customerDayCounts = customerDayCountService.queryCustomerDayCounts(customerIds, startDate, endDate, dateType);
 
-        return R.ok().put("customerDayCounts",customerDayCounts);
+        return R.ok().put("customer"+dateType+"Counts",customerDayCounts);
 
     }
 }

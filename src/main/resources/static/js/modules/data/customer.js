@@ -3,8 +3,9 @@ $(function () {
         url: baseURL + 'customer/list',
         datatype: "json",
         colModel: [			
-			{ label: '机器ID', name: 'customerId', index: "user_id", width: 45, key: true },
-			{ label: '用户名', name: 'customer', width: 75 }
+			{ label: '机器ID', name: 'customerId', index: "customer_id", width: 45, key: true },
+			{ label: '机器名', name: 'customer', width: 75 },
+			{ label: '总检测数量', name: 'totalCheck', width: 75,formatter:numberFormatter}
         ],
 		viewrecords: true,
         height: 385,
@@ -39,6 +40,7 @@ var vm = new Vue({
 		q:{
 			username: null
 		},
+        allTotalCheck:0,
 		showList: true,
 		title:null,
 		roleList:{},
@@ -47,96 +49,33 @@ var vm = new Vue({
 			roleIdList:[]
 		}
 	},
+	mounted:function () {
+        this.queryAllTotalCheck();
+    },
 	methods: {
 		query: function () {
 			vm.reload();
-		},
-		add: function(){
-			vm.showList = false;
-			vm.title = "新增";
-			vm.roleList = {};
-			vm.user = {status:1,roleIdList:[]};
-			
-			//获取角色信息
-			this.getRoleList();
-		},
-		update: function () {
-			var userId = getSelectedRow();
-			if(userId == null){
-				return ;
-			}
-			
-			vm.showList = false;
-            vm.title = "修改";
-			
-			vm.getUser(userId);
-			//获取角色信息
-			this.getRoleList();
-		},
-		del: function () {
-			var userIds = getSelectedRows();
-			if(userIds == null){
-				return ;
-			}
-			
-			confirm('确定要删除选中的记录？', function(){
-				$.ajax({
-					type: "POST",
-				    url: baseURL + "sys/user/delete",
-                    contentType: "application/json",
-				    data: JSON.stringify(userIds),
-				    success: function(r){
-						if(r.code == 0){
-							alert('操作成功', function(){
-                                vm.reload();
-							});
-						}else{
-							alert(r.msg);
-						}
-					}
-				});
-			});
-		},
-		saveOrUpdate: function () {
-            if(vm.validator()){
-                return ;
-            }
-
-			var url = vm.user.userId == null ? "sys/user/save" : "sys/user/update";
-			$.ajax({
-				type: "POST",
-			    url: baseURL + url,
-                contentType: "application/json",
-			    data: JSON.stringify(vm.user),
-			    success: function(r){
-			    	if(r.code === 0){
-						alert('操作成功', function(){
-							vm.reload();
-						});
-					}else{
-						alert(r.msg);
-					}
-				}
-			});
-		},
-		getUser: function(userId){
-			$.get(baseURL + "sys/user/info/"+userId, function(r){
-				vm.user = r.user;
-				vm.user.password = null;
-			});
-		},
-		getRoleList: function(){
-			$.get(baseURL + "sys/role/select", function(r){
-				vm.roleList = r.list;
-			});
 		},
 		reload: function () {
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
-                postData:{'username': vm.q.username},
+                postData:{'customer': vm.q.customer},
                 page:page
             }).trigger("reloadGrid");
+		},
+		queryAllTotalCheck: function(){
+            var mySelf = this;
+		 		$.ajax({
+					url: baseURL + "customer/allTotalCheck",
+					type:"post",
+					data:{},
+					success:function (r) {
+						if (r.code == 0){
+                            mySelf.allTotalCheck = NumFormat(r.allTotalCheck);
+						}
+                    }
+				})
 		},
         validator: function () {
             if(isBlank(vm.user.username)){
@@ -161,3 +100,7 @@ var vm = new Vue({
         }
 	}
 });
+
+function numberFormatter(value, options, row) {
+	return NumFormat(value);
+}

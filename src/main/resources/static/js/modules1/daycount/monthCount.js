@@ -3,10 +3,10 @@ var vm = new Vue({
     data: {
         dayCounts:[[]],
         q:{
-            startDate:'2018-05-01',
-            endDate:'2018-05-09',
+            startDate:'',
+            endDate:'',
             customerIds:[],
-            dateType:'Day'
+            dateType:'Month'
         },
         multiple: {
             originOptions: [],
@@ -15,8 +15,8 @@ var vm = new Vue({
     },
     mounted: function() {
         //装载
-        var start = AddDays(-7);
-        var end = AddDays(0);
+        var start = getAddYearMonth(-1);
+        var end = getAddYearMonth(0);
         this.q.startDate = start;
         this.q.endDate = end;
         //数据组装
@@ -41,7 +41,6 @@ var vm = new Vue({
                         alert(r.msg);
                     }
                 }
-
             });
             // mySelf.multiple.originOptions = [{"id":"1","name":"lemon"},{"id":"2","name":"mike"},{"id":"3","name":"lara"},{"id":"4","name":"zoe"},{"id":"5","name":"steve"},{"id":"6","name":"nolan"}];
             // mySelf.multiple.selectedList = [{"id":"3","name":"lara"}];
@@ -144,18 +143,18 @@ var vm = new Vue({
                        var dayCounts = [];
                        dayCounts[0] = [];
                        dayCounts[0].push('customer');
-                       if (r.customerDayCounts==undefined || r.customerDayCounts.length <1){
+                       if (r.customerMonthCounts==undefined || r.customerMonthCounts.length <1){
                            alert("没有数据");
                            return;
                        }
-                       for (var j=0; j<r.customerDayCounts[0].dayCounts.length; j++){
-                           dayCounts[0].push(r.customerDayCounts[0].dayCounts[j].countDate);
+                       for (var j=0; j<r.customerMonthCounts[0].dayCounts.length; j++){
+                           dayCounts[0].push(r.customerMonthCounts[0].dayCounts[j].monthDate);
                        }
-                       for(var i=0; i<r.customerDayCounts.length; i++){
+                       for(var i=0; i<r.customerMonthCounts.length; i++){
                            dayCounts[i+1] = [];
-                           dayCounts[i+1].push(r.customerDayCounts[i].customer);
-                           for (var j=0; j<r.customerDayCounts[i].dayCounts.length; j++){
-                               dayCounts[i+1].push(r.customerDayCounts[i].dayCounts[j].flowCount);
+                           dayCounts[i+1].push(r.customerMonthCounts[i].customer);
+                           for (var j=0; j<r.customerMonthCounts[i].dayCounts.length; j++){
+                               dayCounts[i+1].push(r.customerMonthCounts[i].dayCounts[j].flowCount);
                            }
                        }
                        vm.dayCounts = dayCounts;

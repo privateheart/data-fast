@@ -1,6 +1,7 @@
 package io.renren.modules.data.dao;
 
 import io.renren.modules.data.entity.Customer;
+import io.renren.modules.data.vo.CustomerVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public interface CustomerDao {
      * @param params
      * @return
      */
-    List<Customer> queryList(Map<String, Object> params);
+    List<CustomerVo> queryList(Map<String, Object> params);
 
     /**
      * 条件查询 机器 总条数

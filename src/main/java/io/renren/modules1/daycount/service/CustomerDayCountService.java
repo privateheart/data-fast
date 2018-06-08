@@ -4,6 +4,9 @@ import io.renren.modules1.daycount.vo.CustomerDayCounts;
 
 import java.util.List;
 
+/**
+ * @author huyi
+ */
 public interface CustomerDayCountService {
 
     /**
@@ -11,8 +14,9 @@ public interface CustomerDayCountService {
      * @param customerIds
      * @param startDate
      * @param endDate
+     * @param dateType
      * @return
      */
-    List<CustomerDayCounts> queryCustomerDayCounts(List<Integer> customerIds, String startDate, String endDate);
+    List<CustomerDayCounts> queryCustomerDayCounts(List<Integer> customerIds, String startDate, String endDate, String dateType);
 
 }

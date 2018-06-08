@@ -1,5 +1,7 @@
 package io.renren.modules1.daycount.service.impl;
 
+import io.renren.common.constant.Constant;
+import io.renren.common.exception.RRException;
 import io.renren.modules.data.dao.CustomerDao;
 import io.renren.modules.data.entity.Customer;
 import io.renren.modules1.daycount.dao.CustomerDayCountDao;
@@ -28,7 +30,7 @@ public class CustomerDayCountServiceImpl implements CustomerDayCountService {
     private CustomerDayCountDao customerDayCountDao;
 
     @Override
-    public List<CustomerDayCounts> queryCustomerDayCounts(List<Integer> customerIds, String startDate, String endDate) {
+    public List<CustomerDayCounts> queryCustomerDayCounts(List<Integer> customerIds, String startDate, String endDate, String dateType) {
         List<Customer> customers = null;
         if (customerIds ==null || customerIds.size()<1){
             customers = customerDao.queryAllCustomer();
@@ -39,9 +41,28 @@ public class CustomerDayCountServiceImpl implements CustomerDayCountService {
         List<CustomerDayCounts> customerDayCounts = new ArrayList<>();
         CustomerDayCounts dayCounts = null;
         List<DayCount> counts = null;
+
         for (Customer c: customers) {
             dayCounts = new CustomerDayCounts();
-            counts = customerDayCountDao.queryDayCountList(c.getCustomerId(), endDate, startDate);
+            int i = customerDayCountDao.checkDayCountTableIfExists(c.getCustomerId());
+            if (i<1){
+
+                throw new RRException(c.getCustomer() +" 没有检测记录！");
+            }
+            switch (dateType){
+                case Constant.DAY :
+                    counts = customerDayCountDao.queryDayCountList(c.getCustomerId(), endDate, startDate);
+                    break;
+                case Constant.MONTH :
+                    counts = customerDayCountDao.queryMonthCountList(c.getCustomerId(), endDate, startDate);
+                    break;
+                case Constant.YEAR :
+                    counts = customerDayCountDao.queryYearCountList(c.getCustomerId(), endDate, startDate);
+                    break;
+                default:
+                    break;
+            }
+
             dayCounts.setCustomer(c.getCustomer());
             dayCounts.setDayCounts(counts);
             customerDayCounts.add(dayCounts);

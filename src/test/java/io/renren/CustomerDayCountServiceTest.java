@@ -22,7 +22,7 @@ public class CustomerDayCountServiceTest {
     @Test
     public void test(){
 
-        List<CustomerDayCounts> customerDayCounts = customerDayCountService.queryCustomerDayCounts(null, null, null);
+        List<CustomerDayCounts> customerDayCounts = customerDayCountService.queryCustomerDayCounts(null, null, null, "Day");
         for (CustomerDayCounts cd : customerDayCounts){
             System.out.println("机器名称=="+cd.getCustomer());
             for (DayCount dayCount : cd.getDayCounts()){

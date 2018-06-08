@@ -1,7 +1,9 @@
 package io.renren.modules.data.service;
 
 import io.renren.modules.data.entity.Customer;
+import io.renren.modules.data.vo.CustomerVo;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +32,7 @@ public interface CustomerService {
      * @param params
      * @return
      */
-    List<Customer> queryList(Map<String, Object> params);
+    List<CustomerVo> queryList(Map<String, Object> params);
 
     /**
      * 条件查询 机器 总条数
@@ -38,4 +40,10 @@ public interface CustomerService {
      * @return
      */
     int queryListCount(Map<String, Object> params);
+
+    /**
+     * 查询所有机器总的检测数量
+     * @return
+     */
+    BigInteger queryAllTotalCheckCount();
 }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+    <link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/select-vue-component.css">
+    <script src="../../libs/jquery.min.js"></script>
+    <script src="../../plugins/layer/layer.js"></script>
+    <script src="../../libs/bootstrap.min.js"></script>
+    <script src="../../libs/vue.min.js"></script>
+    <script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+    <script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+    <script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+    <script src="../../libs/bootstrap-datetimepicker.min.js"></script>
+    <script src="../../libs/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script type="text/javascript" src="../../libs/select2.js"></script>
+    <script type="text/javascript" src="../../libs/select-vue-component.js"></script>
+    <script src="../../js/common.js"></script>
+    <!-- 引入 ECharts 文件 -->
+    <script src="../../libs/echarts.min.js"></script>
+</head>
+<body>
+<div id="rrapp">
+    <div class="row">
+        <div class="grid-btn" style="height:34px;">
+            <div class="form-group col-sm-2">
+               <label>开始日期</label><datetimepicker v-model="q.startDate"></datetimepicker>
+                <label>结束日期</label> <datetimepicker v-model="q.endDate"></datetimepicker>
+                <!--<input type="text" class="form-control"  placeholder="开始日期">-->
+            </div>
+            <div class="form-group col-sm-2">
+                <label>机器</label><multiple-select :optionsdata="multiple.originOptions" :selecteddata="multiple.selectedList" @selected="multipleCallback"></multiple-select>
+            </div>
+            <a class="btn btn-default" @click="getCustomerDayCounts">查询</a>
+
+        </div>
+    </div>
+<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+<div id="main" style="width: 900px;height:600px;margin-top: 60px"></div>
+
+</div>
+<script src="../../js/dataCommon.js"></script>
+<script src="../../js/modules1/daycount/daycount.js"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

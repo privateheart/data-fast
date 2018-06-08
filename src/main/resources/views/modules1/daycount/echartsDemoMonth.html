@@ -32,8 +32,8 @@
     <div class="row">
         <div class="grid-btn" style="height:34px;">
             <div class="form-group col-sm-2">
-               <label>开始日期</label><datetimepicker v-model="q.startDate"></datetimepicker>
-                <label>结束日期</label> <datetimepicker v-model="q.endDate"></datetimepicker>
+               <label>开始日期</label><datetimepicker format="yyyy-mm"  startview="year" minview="year" maxview="year" v-model="q.startDate"></datetimepicker>
+                <label>结束日期</label> <datetimepicker format="yyyy-mm" startview="year" minview="year" maxview="year" v-model="q.endDate"></datetimepicker>
                 <!--<input type="text" class="form-control"  placeholder="开始日期">-->
             </div>
             <div class="form-group col-sm-2">
@@ -48,7 +48,7 @@
 
 </div>
 <script src="../../js/dataCommon.js"></script>
-<script src="../../js/modules1/daycount/daycount.js"></script>
+<script src="../../js/modules1/daycount/monthCount.js"></script>
 <script type="text/javascript">
 
 </script>

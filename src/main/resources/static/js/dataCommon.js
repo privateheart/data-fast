@@ -45,6 +45,15 @@ Vue.component('datetimepicker', {
 });
 
 
+function NumFormat(value) {
+    if(!value) return '0';
+
+    var intPart = Number(value).toFixed(0); //获取整数部分
+    var intPartFormat = intPart.toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,'); //将整数部分逢三一断
+    return intPartFormat;
+
+
+}
 function AddDays(dayIn) {
     var date=new Date();
     var myDate=new Date(date.getTime()+dayIn*24*60*60*1000);
@@ -70,3 +79,37 @@ function AddDays(dayIn) {
     }
     return CurrentDate;
 }
+
+function getAddYearMonth(monthIn) {
+    var date=new Date();
+    var myDate=new Date(date.getTime()+0*24*60*60*1000);
+    var year=myDate.getFullYear();
+    var month=myDate.getMonth()+1;
+    CurrentDate=year+"-";
+    month = month + monthIn;
+    if (month >12){
+        month =12;
+    }
+    if (month <1){
+        month = 1;
+    }
+    if(month>=10)
+    {
+        CurrentDate = CurrentDate+month;
+    }
+    else
+    {
+        CurrentDate = CurrentDate+"0"+month;
+    }
+    return CurrentDate;
+}
+
+function getAddYear(yearIn) {
+    var date=new Date();
+    var myDate=new Date(date.getTime()+0*24*60*60*1000);
+    var year=myDate.getFullYear();
+    CurrentDate = year+yearIn;
+
+    return CurrentDate;
+}
+

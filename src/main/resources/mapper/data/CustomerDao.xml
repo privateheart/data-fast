@@ -15,9 +15,9 @@
         <foreach collection="list" item="customerId" open="(" separator="," close=")">#{customerId}</foreach>
     </select>
 
-    <select id="queryList" resultType="io.renren.modules.data.entity.Customer">
+    <select id="queryList" resultType="io.renren.modules.data.vo.CustomerVo">
         SELECT * FROM customer where 1=1
-        <if test="customer!=null and customer!=''">AND customer=#{customer}</if>
+        <if test="customer!=null and customer!=''">AND customer LIKE '%${customer}%'</if>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}

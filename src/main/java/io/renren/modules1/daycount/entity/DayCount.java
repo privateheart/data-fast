@@ -16,8 +16,11 @@ public class DayCount {
     private Integer countId;
     private BigInteger sessionId;
     private BigInteger flowCount;
+
     @JsonFormat(timezone="GMT+8", pattern="yyyy-MM-dd")
     private Date countDate;
+    private String monthDate;
+    private String yearDate;
 
     public Integer getCountId() {
         return countId;
@@ -49,5 +52,21 @@ public class DayCount {
 
     public void setCountDate(Date countDate) {
         this.countDate = countDate;
+    }
+
+    public String getMonthDate() {
+        return monthDate;
+    }
+
+    public void setMonthDate(String monthDate) {
+        this.monthDate = monthDate;
+    }
+
+    public String getYearDate() {
+        return yearDate;
+    }
+
+    public void setYearDate(String yearDate) {
+        this.yearDate = yearDate;
     }
 }

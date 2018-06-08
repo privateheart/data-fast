@@ -16,4 +16,37 @@
        ORDER BY td.date
    </select>
 
+    <select id="checkDayCountTableIfExists" resultType="int">
+        SELECT COUNT(*) FROM information_schema.TABLES WHERE (TABLE_SCHEMA = 'parser_data') AND (TABLE_NAME = 'customer_${customerId}_day_count') for update
+    </select>
+
+    <select id="queryMonthCountList" resultType="io.renren.modules1.daycount.entity.DayCount">
+        SELECT DATE_FORMAT(td.date,'%Y-%m') AS monthDate,SUM(IFNULL(cdc.flow_count, 0))AS flowCount
+        FROM tmpdate td LEFT JOIN customer_${customerId}_day_count cdc ON td.date=cdc.count_date
+        GROUP BY monthDate
+        <if test="startDate != null and startDate != ''">
+            <![CDATA[  HAVING monthDate >= #{startDate} ]]>
+        </if>
+        <if test="endDate != null and endDate != ''">
+            <![CDATA[ AND monthDate <=#{endDate} ]]>
+        </if>
+        ORDER BY monthDate asc;
+    </select>
+
+    <select id="queryYearCountList" resultType="io.renren.modules1.daycount.entity.DayCount">
+        SELECT YEAR(td.date) AS yearDate,SUM(IFNULL(cdc.flow_count, 0))AS flowCount
+        FROM tmpdate td LEFT JOIN customer_${customerId}_day_count cdc ON td.date=cdc.count_date
+        GROUP BY yearDate
+        <if test="startDate != null and startDate != ''">
+            <![CDATA[  HAVING yearDate >= #{startDate} ]]>
+        </if>
+        <if test="endDate != null and endDate != ''">
+            <![CDATA[ AND yearDate <=#{endDate} ]]>
+        </if>
+        ORDER BY yearDate asc;
+    </select>
+
+    <select id="queryTotalCheck" resultType="java.math.BigInteger">
+        SELECT SUM(flow_count) FROM customer_${customerId}_day_count
+    </select>
 </mapper>

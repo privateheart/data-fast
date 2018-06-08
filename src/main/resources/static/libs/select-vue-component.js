@@ -139,7 +139,7 @@ Vue.component('single-select', {
 		'<div class="functional-select-wrapper" v-on:click.stop="singleFocus()">' +
 			'<label class="display-container clearfix" v-bind:class="(show)?\'single-selected-focus\':\'\'">' + 
                 '<p v-show="selected.id == \'\' ">' +
-                    '<span v-if="originOptions.length != 0 ">请选择</span>' +
+                    '<span v-if="originOptions.length != 0 ">请选择机器</span>' +
                     '<span v-else>没有选项</span>' +
                 '</p>' +
                 '<p class="single-selected">{{ selected.name }}</p>' + 
