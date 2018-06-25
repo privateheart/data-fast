@@ -40,11 +40,11 @@ public class CustomerController {
     @RequestMapping("list")
     @SysLog("查询机器列表")
     public R list(@RequestParam Map<String,Object> params){
-        List<CustomerVo> customers = customerService.queryList(params);
+        Query query = new Query(params);
+        List<CustomerVo> customers = customerService.queryList(query);
         int total = customerService.queryListCount(params);
 
         //查询列表数据
-        Query query = new Query(params);
         PageUtils page = new PageUtils(customers, total, query.getLimit(), query.getPage());
 
         return R.ok().put("page",page);

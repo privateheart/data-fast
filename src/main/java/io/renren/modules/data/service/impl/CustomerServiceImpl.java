@@ -73,6 +73,9 @@ public class CustomerServiceImpl implements CustomerService {
             int i = customerDayCountDao.checkDayCountTableIfExists(c.getCustomerId());
             if (i>0){
                 count = customerDayCountDao.queryTotalCheck(c.getCustomerId());
+                if (count == null){
+                    count =  BigInteger.ZERO;
+                }
             }else {
                 count = BigInteger.ZERO;
             }

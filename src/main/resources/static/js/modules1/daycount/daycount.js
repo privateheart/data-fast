@@ -128,10 +128,10 @@ var vm = new Vue({
         },
         getCustomerDayCounts:function () {
             var selectIds = this.getSelectIds();
-            if (selectIds.length <1){
-                alert("请选择机器");
-                return;
-            }
+            // if (selectIds.length <1){
+            //     alert("请选择机器");
+            //     return;
+            // }
             var params = {customerIds:selectIds,startDate:this.q.startDate,endDate:this.q.endDate,dateType:this.q.dateType};
             $.ajax({
                url: baseURL + "dayCounts/list",
