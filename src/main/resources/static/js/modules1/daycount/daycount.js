@@ -2,6 +2,7 @@ var vm = new Vue({
     el: '#rrapp',
     data: {
         dayCounts:[[]],
+        seriesOption:[],
         q:{
             startDate:'2018-05-01',
             endDate:'2018-05-09',
@@ -81,26 +82,7 @@ var vm = new Vue({
                     xAxis: {type: 'category'},
                     yAxis: {gridIndex: 0},
                     grid: {top: '55%'},
-                    series: [
-                        {type: 'line', smooth: true, seriesLayoutBy: 'row'},
-                        {type: 'line', smooth: true, seriesLayoutBy: 'row'},
-                        {type: 'line', smooth: true, seriesLayoutBy: 'row'},
-                        {type: 'line', smooth: true, seriesLayoutBy: 'row'},
-                        {
-                            type: 'pie',
-                            id: 'pie',
-                            radius: '30%',
-                            center: ['50%', '25%'],
-                            label: {
-                                formatter: '{b}: {@'+vm.q.startDate+'} ({d}%)'
-                            },
-                            encode: {
-                                itemName: 'customer',
-                                value: vm.q.startDate,
-                                tooltip: vm.q.startDate
-                            }
-                        }
-                    ]
+                    series: vm.seriesOption
                 };
 
                 myChart.on('updateAxisPointer', function (event) {
@@ -148,9 +130,26 @@ var vm = new Vue({
                            alert("没有数据");
                            return;
                        }
+
+                       var lines = [];
                        for (var j=0; j<r.customerDayCounts[0].dayCounts.length; j++){
                            dayCounts[0].push(r.customerDayCounts[0].dayCounts[j].countDate);
+                           lines.push({type: 'line', smooth: true, seriesLayoutBy: 'row'});
                        }
+                       lines.push({
+                           type: 'pie',
+                           id: 'pie',
+                           radius: '30%',
+                           center: ['50%', '25%'],
+                           label: {
+                               formatter: '{b}: {@'+vm.q.startDate+'} ({d}%)'
+                           },
+                           encode: {
+                               itemName: 'customer',
+                               value: vm.q.startDate,
+                               tooltip: vm.q.startDate
+                           }
+                       });
                        for(var i=0; i<r.customerDayCounts.length; i++){
                            dayCounts[i+1] = [];
                            dayCounts[i+1].push(r.customerDayCounts[i].customer);
@@ -159,6 +158,7 @@ var vm = new Vue({
                            }
                        }
                        vm.dayCounts = dayCounts;
+                       vm.seriesOption = lines;
                        // vm.$set(vm.dayCounts,dayCounts);
                        vm.initChars();
                    }else {
