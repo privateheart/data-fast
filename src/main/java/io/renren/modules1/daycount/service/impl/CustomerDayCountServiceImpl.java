@@ -11,6 +11,7 @@ import io.renren.modules1.daycount.vo.CustomerDayCounts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,33 +42,35 @@ public class CustomerDayCountServiceImpl implements CustomerDayCountService {
         List<CustomerDayCounts> customerDayCounts = new ArrayList<>();
         CustomerDayCounts dayCounts = null;
         List<DayCount> counts = null;
-
+        BigInteger total = BigInteger.ZERO;
         for (Customer c: customers) {
-            dayCounts = new CustomerDayCounts();
             int i = customerDayCountDao.checkDayCountTableIfExists(c.getCustomerId());
             if (i<1){
-
                 throw new RRException(c.getCustomer() +" 没有检测记录！");
             }
             switch (dateType){
                 case Constant.DAY :
                     counts = customerDayCountDao.queryDayCountList(c.getCustomerId(), endDate, startDate);
+                    total = customerDayCountDao.queryDayTotalCount(c.getCustomerId(),endDate,startDate);
                     break;
                 case Constant.MONTH :
                     counts = customerDayCountDao.queryMonthCountList(c.getCustomerId(), endDate, startDate);
+                    total = customerDayCountDao.queryMonthTotalCount(c.getCustomerId(), endDate, startDate);
                     break;
                 case Constant.YEAR :
                     counts = customerDayCountDao.queryYearCountList(c.getCustomerId(), endDate, startDate);
+                    total = customerDayCountDao.queryYearTotalCount(c.getCustomerId(), endDate, startDate);
                     break;
                 default:
                     break;
             }
-
-            dayCounts.setCustomer(c.getCustomer());
-            dayCounts.setDayCounts(counts);
-            customerDayCounts.add(dayCounts);
+            if (total.compareTo(BigInteger.ZERO) > 0) {
+                dayCounts = new CustomerDayCounts();
+                dayCounts.setCustomer(c.getCustomer());
+                dayCounts.setDayCounts(counts);
+                customerDayCounts.add(dayCounts);
+            }
         }
-
         return customerDayCounts;
     }
 }

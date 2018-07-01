@@ -49,4 +49,41 @@
     <select id="queryTotalCheck" resultType="java.math.BigInteger">
         SELECT SUM(flow_count) FROM customer_${customerId}_day_count
     </select>
+
+    <select id="queryDayTotalCount" resultType="java.math.BigInteger">
+        SELECT SUM(IFNULL(cdc.flow_count, 0)) AS flow_count
+        FROM tmpdate td LEFT JOIN customer_${customerId}_day_count cdc ON td.date=cdc.count_date
+        WHERE 1=1
+        <if test="startDate != null and startDate != ''">
+            <![CDATA[ and DATE_FORMAT(td.date,'%Y-%m-%d')>=#{startDate} ]]>
+        </if>
+        <if test="endDate != null and endDate != ''">
+            <![CDATA[ and DATE_FORMAT(td.date,'%Y-%m-%d')<=#{endDate} ]]>
+        </if>
+    </select>
+
+    <select id="queryMonthTotalCount" resultType="java.math.BigInteger">
+        SELECT SUM(IFNULL(cdc.flow_count, 0))AS flowCount
+        FROM tmpdate td LEFT JOIN customer_${customerId}_day_count cdc ON td.date=cdc.count_date
+        WHERE 1=1
+        <if test="startDate != null and startDate != ''">
+            <![CDATA[  AND DATE_FORMAT(td.date,'%Y-%m') >= #{startDate} ]]>
+        </if>
+        <if test="endDate != null and endDate != ''">
+            <![CDATA[ AND DATE_FORMAT(td.date,'%Y-%m') <=#{endDate} ]]>
+        </if>
+    </select>
+    <select id="queryYearTotalCount" resultType="java.math.BigInteger">
+        SELECT SUM(IFNULL(cdc.flow_count, 0))AS flowCount
+        FROM tmpdate td LEFT JOIN customer_${customerId}_day_count cdc ON td.date=cdc.count_date
+        WHERE 1=1
+        <if test="startDate != null and startDate != ''">
+            <![CDATA[  AND YEAR(td.date) >= #{startDate} ]]>
+        </if>
+        <if test="endDate != null and endDate != ''">
+            <![CDATA[ AND YEAR(td.date) <=#{endDate} ]]>
+        </if>
+    </select>
+
+
 </mapper>

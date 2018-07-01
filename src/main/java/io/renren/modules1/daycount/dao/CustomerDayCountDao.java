@@ -26,6 +26,14 @@ public interface CustomerDayCountDao {
      */
     List<DayCount> queryDayCountList(@Param("customerId") int customerId, @Param("endDate") String endDate, @Param("startDate") String startDate);
 
+    /**
+     * 查询 这台机器 这段时间 所有检测的总数
+     * @param customerId
+     * @param endDate
+     * @param startDate
+     * @return
+     */
+    BigInteger queryDayTotalCount(@Param("customerId") int customerId, @Param("endDate") String endDate, @Param("startDate") String startDate);
 
     /**
      * 某一年的 或者某几年的 每个月检测的数量
@@ -36,6 +44,14 @@ public interface CustomerDayCountDao {
      */
     List<DayCount> queryMonthCountList(@Param("customerId") int customerId,@Param("endDate")String endDate, @Param("startDate") String startDate);
 
+    /**
+     * 某一年的 或者某几年的 每个月检测的数量
+     * @param customerId
+     * @param endDate
+     * @param startDate
+     * @return
+     */
+    BigInteger queryMonthTotalCount(@Param("customerId") int customerId,@Param("endDate")String endDate, @Param("startDate") String startDate);
 
     /**
      *某一年或者某几年的  检测数量
@@ -46,6 +62,14 @@ public interface CustomerDayCountDao {
      */
     List<DayCount> queryYearCountList(@Param("customerId")int customerId,@Param("endDate")String endDate, @Param("startDate") String startDate);
 
+    /**
+     *某一年或者某几年的  检测数量
+     * @param customerId
+     * @param endDate
+     * @param startDate
+     * @return
+     */
+    BigInteger queryYearTotalCount(@Param("customerId")int customerId,@Param("endDate")String endDate, @Param("startDate") String startDate);
 
     /**
      * 查询 customer_id_day_count是否存在
