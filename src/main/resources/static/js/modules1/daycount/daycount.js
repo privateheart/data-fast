@@ -81,7 +81,7 @@ var vm = new Vue({
                     },
                     xAxis: {type: 'category'},
                     yAxis: {gridIndex: 0},
-                    grid: {top: '55%'},
+                    grid: {top: '50%'},
                     series: vm.seriesOption
                 };
 
@@ -122,7 +122,6 @@ var vm = new Vue({
                data:JSON.stringify(params),
                success:function (r) {
                    if (r.code==0){
-
                        var dayCounts = [];
                        dayCounts[0] = [];
                        dayCounts[0].push('customer');
@@ -134,7 +133,15 @@ var vm = new Vue({
                        var lines = [];
                        for (var j=0; j<r.customerDayCounts[0].dayCounts.length; j++){
                            dayCounts[0].push(r.customerDayCounts[0].dayCounts[j].countDate);
+
+                       }
+                       for(var i=0; i<r.customerDayCounts.length; i++){
+                           dayCounts[i+1] = [];
+                           dayCounts[i+1].push(r.customerDayCounts[i].customer);
                            lines.push({type: 'line', smooth: true, seriesLayoutBy: 'row'});
+                           for (var j=0; j<r.customerDayCounts[i].dayCounts.length; j++){
+                               dayCounts[i+1].push(r.customerDayCounts[i].dayCounts[j].flowCount);
+                           }
                        }
                        lines.push({
                            type: 'pie',
@@ -150,13 +157,6 @@ var vm = new Vue({
                                tooltip: vm.q.startDate
                            }
                        });
-                       for(var i=0; i<r.customerDayCounts.length; i++){
-                           dayCounts[i+1] = [];
-                           dayCounts[i+1].push(r.customerDayCounts[i].customer);
-                           for (var j=0; j<r.customerDayCounts[i].dayCounts.length; j++){
-                               dayCounts[i+1].push(r.customerDayCounts[i].dayCounts[j].flowCount);
-                           }
-                       }
                        vm.dayCounts = dayCounts;
                        vm.seriesOption = lines;
                        // vm.$set(vm.dayCounts,dayCounts);
