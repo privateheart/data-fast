@@ -132,7 +132,14 @@ var vm = new Vue({
                        var lines = [];
                        for (var j=0; j<r.customerYearCounts[0].dayCounts.length; j++){
                            dayCounts[0].push(r.customerYearCounts[0].dayCounts[j].yearDate);
+                       }
+                       for(var i=0; i<r.customerYearCounts.length; i++){
+                           dayCounts[i+1] = [];
+                           dayCounts[i+1].push(r.customerYearCounts[i].customer);
                            lines.push({type: 'line', smooth: true, seriesLayoutBy: 'row'});
+                           for (var j=0; j<r.customerYearCounts[i].dayCounts.length; j++){
+                               dayCounts[i+1].push(r.customerYearCounts[i].dayCounts[j].flowCount);
+                           }
                        }
                        lines.push({
                            type: 'pie',
@@ -148,13 +155,6 @@ var vm = new Vue({
                                tooltip: vm.q.startDate
                            }
                        });
-                       for(var i=0; i<r.customerYearCounts.length; i++){
-                           dayCounts[i+1] = [];
-                           dayCounts[i+1].push(r.customerYearCounts[i].customer);
-                           for (var j=0; j<r.customerYearCounts[i].dayCounts.length; j++){
-                               dayCounts[i+1].push(r.customerYearCounts[i].dayCounts[j].flowCount);
-                           }
-                       }
                        vm.dayCounts = dayCounts;
                        // vm.$set(vm.dayCounts,dayCounts);
                        vm.seriesOption = lines;
