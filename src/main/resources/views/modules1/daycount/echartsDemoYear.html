@@ -39,11 +39,11 @@
             <div class="form-group col-sm-2">
                 <multiple-select :optionsdata="multiple.originOptions" :selecteddata="multiple.selectedList" @selected="multipleCallback"></multiple-select>
             </div>
-            <a class="btn btn-default" @click="getCustomerDayCounts">查询</a>
+            <a class="btn btn-default" @click="getCustomerDayCounts('false')">查询</a>
         </div>
     </div>
 <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-<div id="main" style="width: 900px;height:600px;margin-top: 60px"></div>
+<div id="main" style="width: 1400px;height:700px"></div>
 
 </div>
 <script src="../../js/dataCommon.js"></script>
