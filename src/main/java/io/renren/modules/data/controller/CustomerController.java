@@ -52,8 +52,8 @@ public class CustomerController {
 
     @RequestMapping("allTotalCheck")
     @SysLog("查询所有机器总的检测零件数量")
-    public R allTotalCheck(){
-        BigInteger allTotalCheck = customerService.queryAllTotalCheckCount();
+    public R allTotalCheck(@RequestParam Map<String,Object> params){
+        BigInteger allTotalCheck = customerService.queryAllTotalCheckCount(params);
         return R.ok().put("allTotalCheck",allTotalCheck);
     }
 }

@@ -174,11 +174,8 @@ var vm = new Vue({
             this.multiple.selectedList = data;
             // console.log('父级元素调用multipleSelected 选中的是' + JSON.stringify(data))
         }
-    },
-    created: function () {
-        var _this = this;
-        setTimeout(function () {
-            _this.getCustomerDayCounts(true);
-        },500);
     }
 });
+$(function () {
+    vm.getCustomerDayCounts(true);
+})

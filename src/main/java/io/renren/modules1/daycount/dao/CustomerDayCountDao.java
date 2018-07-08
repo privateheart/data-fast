@@ -5,8 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigInteger;
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 测试
@@ -80,8 +80,8 @@ public interface CustomerDayCountDao {
 
     /**
      * 查询 customer 总共检查的数量
-     * @param customerId
+     * @param params
      * @return
      */
-    BigInteger queryTotalCheck(@Param("customerId")int customerId);
+    BigInteger queryTotalCheck(Map<String, Object> params);
 }

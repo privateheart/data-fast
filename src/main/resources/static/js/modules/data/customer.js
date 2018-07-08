@@ -60,16 +60,17 @@ var vm = new Vue({
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
 			$("#jqGrid").jqGrid('setGridParam',{ 
-                postData:{'customer': vm.q.customer},
+                postData:{'customer': vm.q.customer,'startDate':vm.q.startDate,'endDate': vm.q.endDate},
                 page:page
             }).trigger("reloadGrid");
+            this.queryAllTotalCheck();
 		},
 		queryAllTotalCheck: function(){
             var mySelf = this;
 		 		$.ajax({
 					url: baseURL + "customer/allTotalCheck",
 					type:"post",
-					data:{},
+					data:{'customer': vm.q.customer,'startDate':vm.q.startDate,'endDate': vm.q.endDate},
 					success:function (r) {
 						if (r.code == 0){
                             mySelf.allTotalCheck = NumFormat(r.allTotalCheck);

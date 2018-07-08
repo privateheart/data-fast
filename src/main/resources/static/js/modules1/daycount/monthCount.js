@@ -67,7 +67,7 @@ var vm = new Vue({
             var myChart = echarts.init(document.getElementById('main'));
             setTimeout(function () {
                 option = {
-                    legend: {},
+                    legend: {orient: 'vertical',left:'left', width:'30%', height:'30%'},
                     tooltip: {
                         trigger: 'axis',
                         showContent: false
@@ -172,11 +172,8 @@ var vm = new Vue({
             this.multiple.selectedList = data;
             // console.log('父级元素调用multipleSelected 选中的是' + JSON.stringify(data))
         }
-    },
-    created: function () {
-        var _this = this;
-        setTimeout(function () {
-            _this.getCustomerDayCounts(true);
-        },500);
     }
 });
+$(function () {
+    vm.getCustomerDayCounts(true);
+})

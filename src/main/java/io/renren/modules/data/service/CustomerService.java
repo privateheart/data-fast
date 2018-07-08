@@ -45,5 +45,5 @@ public interface CustomerService {
      * 查询所有机器总的检测数量
      * @return
      */
-    BigInteger queryAllTotalCheckCount();
+    BigInteger queryAllTotalCheckCount(Map<String,Object> params);
 }
