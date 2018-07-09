@@ -1,0 +1,131 @@
+.api_top_nav {
+    opacity: .7;
+}
+
+.api_top_nav {
+    height: 90px;
+    line-height: 90px;
+    background: #1b1c30;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+.api_top_nav_ {
+    width: 1200px;
+    margin: 0 auto;
+    height: 90px;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    margin-left: -600px;
+    z-index: 1000;
+}
+
+.api_top_nav_ .left_con {
+    width: 270px;
+    float: left;
+    font-size: 18px;
+    color: #fff;
+    height: 90px;
+    line-height: 90px;
+}
+
+.api_top_nav_ .left_con img {
+    margin-top: 25px;
+}
+
+.api_top_nav_ .left_con .shu {
+    margin: 0 22px;
+}
+
+.api_top_nav_ .right_con {
+    float: right;
+    height: 90px;
+    line-height: 90px;
+    padding-right: 10%;
+}
+
+.api_top_nav_ .right_con li {
+    float: left;
+    margin-left: 40px;
+}
+
+/*.login-box-body{
+    opacity: .2;
+    background: #1b1c30;
+    width: 100%;
+    z-index: 9999;
+}*/
+.login-box-body {
+    position: relative; /* [Rest of styling] */
+    background: hsla(0, 0%, 100%, .3);
+    -webkit-box-shadow: 0 0 16px #fff;
+    -moz-box-shadow: 0 0 16px #fff;
+    box-shadow: 0 0 16px #fff;
+    color: #ffffff;
+}
+
+.login-box-body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    filter: blur(20px);
+}
+
+.logo {
+    color: #ffffff;
+    position: fixed;
+    width: 100%;
+    top: 35%;
+    text-align: center;
+}
+
+input:-webkit-autofill {
+    background-color: rgba(255, 255, 255, .15);
+    background-image: none;
+    color: #ffffff;
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+/ / 使用足够大的纯色内阴影覆盖黄色背景
+}
+
+input::-webkit-input-placeholder {
+    　　color: white !important; /* WebKit browsers */
+}
+
+input:-moz-placeholder {
+    　　color: white !important; /* Mozilla Firefox 4 to 18 */
+}
+
+input::-moz-placeholder {
+    　　color: white !important; /* Mozilla Firefox 19+ */
+}
+
+input:-ms-input-placeholder {
+    　　color: white !important; /* Internet Explorer 10+ */
+}
+
+.btn:hover {
+    color: #ffffff !important;
+    opacity: 0.7;
+}
+
+.footer {
+    color: #ffffff;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 10px;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+}
+
+.btn-flat {
+    background-color: #081444;
+    opacity: 0.7;
+}

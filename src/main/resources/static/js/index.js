@@ -37,10 +37,10 @@ var vm = new Vue({
 	data:{
 		user:{},
 		menuList:{},
-		main:"main.html",
+		main:"modules1/daycount/echartsDemoDay.html",
 		password:'',
 		newPassword:'',
-        navTitle:"欢迎页"
+        navTitle:"机器日统计数量图"
 	},
 	methods: {
 		getMenuList: function () {
