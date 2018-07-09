@@ -54,7 +54,7 @@ var vm = new Vue({
         },
         getSelectIds:function (isInit) {
             var ids = [];
-            if (isInit) {
+            if (isInit == false) {
                 return ids;
             }
            for (var i=0; i< this.multiple.selectedList.length; i++){

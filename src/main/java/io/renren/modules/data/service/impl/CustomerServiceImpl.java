@@ -67,10 +67,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public BigInteger queryAllTotalCheckCount(Map<String,Object> params) {
-        List<CustomerVo> customers = customerDao.queryList(params);
+        List<Customer> customers = customerDao.queryAllCustomer();
         BigInteger totalCheck = BigInteger.ZERO;
         BigInteger count = BigInteger.ZERO;
-        for (CustomerVo c : customers){
+        for (Customer c : customers){
             int i = customerDayCountDao.checkDayCountTableIfExists(c.getCustomerId());
             if (i>0){
                 params.put("customerId",c.getCustomerId());

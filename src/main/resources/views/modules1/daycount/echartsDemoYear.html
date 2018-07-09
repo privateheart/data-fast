@@ -32,10 +32,10 @@
     <div class="row">
         <div class="grid-btn" style="height:34px;">
             <div class="form-group col-sm-4">
-                <label>开始日期</label><datetimepicker v-model="q.startDate"></datetimepicker>
+                <label>开始日期</label><datetimepicker format="yyyy" startview="decade" minview="decade" maxview="decade" v-model="q.startDate"></datetimepicker>
             </div>
             <div class="form-group col-sm-4">
-                <label>结束日期</label> <datetimepicker v-model="q.endDate"></datetimepicker>
+                <label>结束日期</label> <datetimepicker format="yyyy" startview="decade" minview="decade" maxview="decade" v-model="q.endDate"></datetimepicker>
                 <!--<input type="text" class="form-control"  placeholder="开始日期">-->
             </div>
             <div class="form-group col-sm-4">

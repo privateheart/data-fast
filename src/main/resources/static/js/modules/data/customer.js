@@ -50,7 +50,7 @@ var vm = new Vue({
 		}
 	},
 	mounted:function () {
-        this.queryAllTotalCheck();
+
     },
 	methods: {
 		query: function () {
@@ -99,7 +99,10 @@ var vm = new Vue({
                 return true;
 			}
         }
-	}
+	},
+    created: function () {
+        this.queryAllTotalCheck();
+    }
 });
 
 function numberFormatter(value, options, row) {
